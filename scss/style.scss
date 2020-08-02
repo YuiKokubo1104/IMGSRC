@@ -4,6 +4,7 @@ $colors: (
 
 body {
     position: relative;
+    font-family: 'Oswald', sans-serif;
 }
 
 .l-wrapper {
@@ -27,12 +28,27 @@ body {
         top: 50%;
         transform: translateY(-50%);
         padding: 24px 0;
+        background-color: #000;
         >.output {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             height: 20vh;
-            min-height: 120px;
+            min-height: 140px;
             max-height: 160px;
             margin-bottom: 24px;
+            padding: 16px;
             background-color: #2b2b2b;
+            >.formula {
+                font-size: 32px;
+                line-height: 1;
+                text-align: right;
+            }
+            >.result {
+                font-size: 64px;
+                line-height: 1;
+                text-align: right;
+            }
         }
         >.input {
             >.inner {
@@ -44,6 +60,9 @@ body {
                     width: 100%;
                     max-width: 368px;
                     margin: 0 auto 16px;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
                     button {
                         position: relative;
                         width: 21.739%;
@@ -83,7 +102,11 @@ body {
                             right: 0;
                             border-radius: 50%;
                             justify-content: center;
-                            align-items: center;                        
+                            align-items: center; 
+                            &.text_division img{
+                                width: 24px;
+                                height: 24px;
+                            }                       
                         }
                         &.gray >.inner {
                             background-color: #9c9c9c;
