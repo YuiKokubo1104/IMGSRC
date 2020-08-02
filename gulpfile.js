@@ -27,19 +27,21 @@ gulp.task("default", function() {
           sass({
             outputStyle: "expanded"
           })
-            .on("error", sass.logError)
+          .on("error", sass.logError)
         )
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(autoprefixer(['last 3 versions', 'ie >= 9', 'Android >= 5', 'iOS >=10']))
         .pipe(gulp.dest(scss_path_dest))
-        .pipe(notify({
-          title: 'Task running Gulp',
-          message: 'sass file compiled.',
-          sound: 'none',
-        }))
     );
   });
 });
+
+// .pipe(notify({
+//   title: 'Task running Gulp',
+//   message: 'sass file compiled.?',
+//   sound: 'none',
+// }))
+// .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+// .pipe(autoprefixer(['last 3 versions', 'ie >= 9', 'Android >= 5', 'iOS >=10']))
+
 
 gulp.task("uglify", function () {
   return gulp.src(js_path_src)
