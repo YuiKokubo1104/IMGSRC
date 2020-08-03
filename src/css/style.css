@@ -119,7 +119,7 @@ body {
   text-align: center;
 }
 
-.l-calculator > .inner > .input > .inner .line button:active > .inner:after, .l-calculator > .inner > .input > .inner .line button:hover > .inner:after {
+.l-calculator > .inner > .input > .inner .line button:hover > .inner:after {
   content: "";
   position: absolute;
   top: 0;
@@ -130,7 +130,7 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.l-calculator > .inner > .input > .inner .line button:active.col2 > .inner:after, .l-calculator > .inner > .input > .inner .line button:hover.col2 > .inner:after {
+.l-calculator > .inner > .input > .inner .line button:hover.col2 > .inner:after {
   border-radius: 40px;
 }
 

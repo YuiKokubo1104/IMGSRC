@@ -2,38 +2,38 @@
 $(function(){
     var app = new Vue({
         el: '#app',
-        data: {
-            result: 0,
+        data: () => ({
             result_before: 0,
-            result_text: '',
+            result_text: '0',
             formula_num: [],
             formula_symbol: [],
             formula_text: '',
+            formula_flg: false,
             error: {
                 result: false,
                 formula: false
             }
-        },
+        }),
         beforeMount: function() {
-            this.result_text = this.result;
         },
         methods: {
             pushNumber: function (value) {
-                alert(value);
 
+                if(this.result_text == 0){ //前回0だった場合
+                    if(value == 0 || value == '.') return;
+                    this.result_text = value;
+                } else { //通常
+                    this.result_text = this.result_text.replace( /,/g , "") + value;
+                    this.result_text = Number(this.result_text).toLocaleString( undefined, { maximumFractionDigits: 20 });
+                    if(value == '.') this.result_text = this.result_text + value;
+                }
             },
             pushSymbol: function (value) {
-                alert(value);
+                if(this.formula_num.length == 0) return;
+
             },
             pushClear: function(){
-                alert('clear');
-                this.result = 0;
-                this.result_before = 0;
-                this.result_text = '';
-                this.formula_num = [];
-                this.formula_symbol = [];
-                this.error.result = false;
-                this.error.formula = false;
+                Object.assign(app.$data, app.$options.data());
             }
         }
     })
