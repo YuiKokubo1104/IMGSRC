@@ -8,7 +8,7 @@ $(function(){
             formula_num: [],
             formula_symbol: [],
             formula_text: '',
-            formula_flg: false,
+            flg_inputNum: false, //0が押されている可能性
             error: {
                 result: false,
                 formula: false
@@ -18,37 +18,64 @@ $(function(){
         },
         methods: {
             pushNumber: function (value) {
+                if((this.result.split('.').length == 2 && value == '.')) return;//最後が.で終わっている且つ値が.
 
-                if(this.result == 0){ //0だった場合
-                    if(value == 0 || value == '.') return;
-                    this.result = value;
-                    this.result_text = this.result;
+                if(this.result == '0'){//現在0だった場合
+                    if(value == 0) { //0が押されました
+                        this.result_text　= value;
+                        this.flg_inputNum = true;
+                        return;
+                    }
+
+                    if(value == '.') { //.が押されました
+                        this.result = this.result + value;
+                    } else {
+                        this.result = value;
+                    }
+                    
                 } else { //通常
-                    if(this.result.slice(-1) == '.' && value == '.') return;//最後が.で終わっている且つ値が.
-
+                    //数値に戻して付け足し
                     this.result = this.result.replace( /,/g , "") + value;
-                    this.result_text = Number(this.result).toLocaleString( undefined, { maximumFractionDigits: 20 });
-                    if(value == '.') this.result_text = this.result_text + value;//.が取れてしまったのでつけ直し
+
+                    let flg_decimal = this.result.split('.').length == 2 ? this.result.split('.')[1] : false;
+                    console.log(flg_decimal);
+
+                    this.result = Number(this.result).toLocaleString( undefined, { maximumFractionDigits: 20 });
+
+                    if(flg_decimal || flg_decimal==""){ // 小数点以下が存在
+                        if(value == '.' && flg_decimal=="") this.result = this.result + value;//.が取れてしまったのでつけ直し
+                        if(value == '0') this.result = this.result.split('.')[0] + '.' + flg_decimal;
+                    }
                 }
+                this.result_text = this.result;
+                this.flg_inputNum = true;
             },
             pushSymbol: function (value) {
-                if(this.formula_num.length == 0 && this.result == 0) return; //数値が無くボタンが押された場合
 
-                if(this.formula_num.length　== this.formula_symbol.length && this.result == 0){ // すでに記号が押されていた場合
-                    this.formula_symbol[this.formula_symbol.length-1] = value;
+                if(this.formula_text.slice(-1) == ' '){ // 記号で終わっている場合
+                    //数値の入力がない
+                    if(!this.flg_inputNum) this.formula_symbol[this.formula_symbol.length-1] = value;
+                    
                 } else {
                     // 数値
-                    this.formula_num[this.formula_num.length] = this.result_text;
-                    this.result = 0;
+                    this.formula_num[this.formula_num.length] = Number(this.result).toLocaleString( undefined, { maximumFractionDigits: 20 });
+                    this.result = '0';
 
                     // 記号
                     this.formula_symbol[this.formula_symbol.length] =　value;
 
                 }
                 this.createAllformula();
-
+                flg_inputNum = false;
             },
             pushCalculation: function(){
+                if(this.formula_num.length == 0 || this.result == 0) return;// 式がない時は返却
+
+                if(this.formula_text.slice(-1) == ' '){ // 記号で終わっている場合
+                }
+                let answer = safeEval(this.formula_text);
+                alert(answer);
+
             },
             pushClear: function(){
                 Object.assign(app.$data, app.$options.data());
@@ -66,6 +93,9 @@ $(function(){
                     this.formula_text = this.formula_text + this.formula_symbol[i];
                 }
             },
+            safeEval: function (value) {
+                return Function('"use strict";return ('+value+')')();
+            }
         }
     })
 
