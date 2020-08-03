@@ -37,7 +37,7 @@ body {
   min-height: 140px;
   max-height: 160px;
   margin-bottom: 24px;
-  padding: 16px;
+  padding: 16px 24px;
   background-color: #2b2b2b;
 }
 
@@ -47,10 +47,34 @@ body {
   text-align: right;
 }
 
+@media screen and (max-width: 415px) {
+  .l-calculator > .inner > .output > .formula {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .l-calculator > .inner > .output > .formula {
+    font-size: 28px;
+  }
+}
+
 .l-calculator > .inner > .output > .result {
   font-size: 64px;
   line-height: 1;
   text-align: right;
+}
+
+@media screen and (max-width: 415px) {
+  .l-calculator > .inner > .output > .result {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .l-calculator > .inner > .output > .result {
+    font-size: 56px;
+  }
 }
 
 .l-calculator > .inner > .input > .inner {
@@ -77,6 +101,21 @@ body {
   font-size: 40px;
   line-height: 1;
   text-align: center;
+}
+
+.l-calculator > .inner > .input > .inner .line button:active > .inner:after, .l-calculator > .inner > .input > .inner .line button:hover > .inner:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.l-calculator > .inner > .input > .inner .line button:active.col2 > .inner:after, .l-calculator > .inner > .input > .inner .line button:hover.col2 > .inner:after {
+  border-radius: 40px;
 }
 
 .l-calculator > .inner > .input > .inner .line button:before {

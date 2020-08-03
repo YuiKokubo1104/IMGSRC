@@ -11,15 +11,16 @@
   <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
   <script src="lib/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="js/index.js"></script>
 </head>
 <body>
   <div class="l-wrapper">
-    <div class="l-calculator">
+    <div class="l-calculator" id="app">
       <div class="inner">
         <div class="output">
-          <div class="formula">123 + 456 × 789 ÷ 123</div>
-          <div class="result">123,456,789</div>
+          <div class="formula">{{ formula_text }}</div>
+          <div class="result">{{ result }}</div>
         </div>
         <div class="input">
           <div class="inner">

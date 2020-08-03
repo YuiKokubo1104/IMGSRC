@@ -1,6 +1,16 @@
 $colors: (
     black: #000
 );
+$breakpoints: (
+    'xs': 'screen and (max-width: 360px)',
+    'sm': 'screen and (max-width: 415px)',
+    'md': 'screen and (max-width: 440px)',
+) !default;
+@mixin mq($breakpoint: md) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+      @content;
+    }
+}
 
 body {
     position: relative;
@@ -37,17 +47,29 @@ body {
             min-height: 140px;
             max-height: 160px;
             margin-bottom: 24px;
-            padding: 16px;
+            padding: 16px 24px;
             background-color: #2b2b2b;
             >.formula {
                 font-size: 32px;
                 line-height: 1;
                 text-align: right;
+                @include mq(sm) {
+                    font-size: 30px;
+                }
+                @include mq(xs) {
+                    font-size: 28px;
+                }
             }
             >.result {
                 font-size: 64px;
                 line-height: 1;
                 text-align: right;
+                @include mq(sm) {
+                    font-size: 60px;
+                }
+                @include mq(xs) {
+                    font-size: 56px;
+                }
             }
         }
         >.input {
@@ -66,11 +88,25 @@ body {
                     button {
                         position: relative;
                         width: 21.739%;
-                        //height: 80px;
                         margin-right: 4.34%;
                         font-size: 40px;
                         line-height: 1;
                         text-align: center;
+                        &:active, &:hover {
+                            >.inner:after {
+                                content:"";
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                bottom: 0; 
+                                right: 0;  
+                                border-radius: 50%;
+                                background-color: rgba($color: #fff, $alpha: .3);
+                            }
+                            &.col2>.inner:after {
+                                border-radius: 40px;
+                            }
+                        }
                         &:before {
                             content:"";
                             display: block;
