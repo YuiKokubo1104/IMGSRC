@@ -41,10 +41,21 @@ body {
   background-color: #2b2b2b;
 }
 
+@media screen and (max-width: 360px) {
+  .l-calculator > .inner > .output {
+    margin-bottom: 16px;
+  }
+}
+
 .l-calculator > .inner > .output > .formula {
+  display: none;
   font-size: 32px;
   line-height: 1;
   text-align: right;
+}
+
+.js_ready .l-calculator > .inner > .output > .formula {
+  display: block;
 }
 
 @media screen and (max-width: 415px) {
@@ -60,9 +71,14 @@ body {
 }
 
 .l-calculator > .inner > .output > .result {
+  display: none;
   font-size: 64px;
   line-height: 1;
   text-align: right;
+}
+
+.js_ready .l-calculator > .inner > .output > .result {
+  display: block;
 }
 
 @media screen and (max-width: 415px) {

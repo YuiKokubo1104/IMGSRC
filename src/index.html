@@ -20,42 +20,42 @@
       <div class="inner">
         <div class="output">
           <div class="formula">{{ formula_text }}</div>
-          <div class="result">{{ result }}</div>
+          <div class="result">{{ result_text }}</div>
         </div>
         <div class="input">
           <div class="inner">
             <div class="line">
-              <button class="gray"><div class="inner">C</div></button>
+              <button class="gray" @click="pushClear"><div class="inner">C</div></button>
               <button class="black_none"><div class="inner"></div></button>
               <button class="black_none"><div class="inner"></div></button>
-              <button class="orange"><div class="inner"><img src="img/text_division.png" alt="÷"></div></button>
+              <button class="orange" @click="pushSymbol('÷')"><div class="inner"><img src="img/text_division.png" alt="÷"></div></button>
             </div>
 
             <div class="line">
-              <button class="darkGray"><div class="inner">7</div></button>
-              <button class="darkGray"><div class="inner">8</div></button>
-              <button class="darkGray"><div class="inner">9</div></button>
-              <button class="orange"><div class="inner"><img src="img/text_multiplication.png" alt="×"></div></button>
+              <button class="darkGray" @click="pushNumber('7')"><div class="inner">7</div></button>
+              <button class="darkGray" @click="pushNumber('8')"><div class="inner">8</div></button>
+              <button class="darkGray" @click="pushNumber('9')"><div class="inner">9</div></button>
+              <button class="orange" @click="pushSymbol('×')"><div class="inner"><img src="img/text_multiplication.png" alt="×"></div></button>
             </div>
 
             <div class="line">
-              <button class="darkGray"><div class="inner">4</div></button>
-              <button class="darkGray"><div class="inner">5</div></button>
-              <button class="darkGray"><div class="inner">6</div></button>
-              <button class="orange"><div class="inner"><img src="img/text_subtraction.png" alt="−"></div></button>
+              <button class="darkGray" @click="pushNumber('4')"><div class="inner">4</div></button>
+              <button class="darkGray" @click="pushNumber('5')"><div class="inner">5</div></button>
+              <button class="darkGray" @click="pushNumber('6')"><div class="inner">6</div></button>
+              <button class="orange" @click="pushSymbol('-')"><div class="inner"><img src="img/text_subtraction.png" alt="−"></div></button>
             </div>
 
             <div class="line">
-              <button class="darkGray"><div class="inner">1</div></button>
-              <button class="darkGray"><div class="inner">2</div></button>
-              <button class="darkGray"><div class="inner">3</div></button>
-              <button class="orange"><div class="inner"><img src="img/text_addition.png" alt="+"></div></button>
+              <button class="darkGray" @click="pushNumber('1')"><div class="inner">1</div></button>
+              <button class="darkGray" @click="pushNumber('2')"><div class="inner">2</div></button>
+              <button class="darkGray" @click="pushNumber('3')"><div class="inner">3</div></button>
+              <button class="orange" @click="pushSymbol('+')"><div class="inner"><img src="img/text_addition.png" alt="+"></div></button>
             </div>
 
             <div class="line">
-              <button class="darkGray col2"><div class="inner">0</div></button>
-              <button class="darkGray"><div class="inner">.</div></button>
-              <button class="orange"><div class="inner"><img src="img/text_equal.png" alt="="></div></button>
+              <button class="darkGray col2" @click="pushNumber('0')"><div class="inner">0</div></button>
+              <button class="darkGray" @click="pushSymbol('.')"><div class="inner">.</div></button>
+              <button class="orange"  @click="pushSymbol('=')"><div class="inner"><img src="img/text_equal.png" alt="="></div></button>
             </div>
 
           </div>

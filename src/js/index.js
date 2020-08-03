@@ -5,23 +5,38 @@ $(function(){
         data: {
             result: 0,
             result_before: 0,
-            result_flg: true,
-            formula_text: '',
+            result_text: '',
             formula_num: [],
             formula_symbol: [],
-            errorText_result: '',
-            errorText_formula: ''
+            formula_text: '',
+            error: {
+                result: false,
+                formula: false
+            }
         },
         beforeMount: function() {
-            
+            this.result_text = this.result;
         },
         methods: {
             pushNumber: function (value) {
+                alert(value);
+
             },
             pushSymbol: function (value) {
+                alert(value);
             },
-            pushCarculate: function(){
+            pushClear: function(){
+                alert('clear');
+                this.result = 0;
+                this.result_before = 0;
+                this.result_text = '';
+                this.formula_num = [];
+                this.formula_symbol = [];
+                this.error.result = false;
+                this.error.formula = false;
             }
         }
     })
+
+    $("body").addClass("js_ready");
 });
