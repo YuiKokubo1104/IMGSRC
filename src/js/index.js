@@ -8,19 +8,19 @@ $(function(){
             formula_num: [],
             formula_symbol: [],
             formula_text: '',
-            flg_inputNum: false, //0が押されている可能性
+            flg_inputNum: false,
+            flg_result: false,
             error: {
                 result: false,
                 formula: false
             }
         }),
-        beforeMount: function() {
-        },
         methods: {
             pushNumber: function (value) {
                 if((this.result.split('.').length == 2 && value == '.')) return;//最後が.で終わっている且つ値が.
 
-                if(this.result == '0'){//現在0だった場合
+                if(this.result == '0' || this.flg_result){//現在0だった場合
+                    this.flg_result = false;
                     if(value == 0) { //0が押されました
                         this.result_text　= value;
                         this.flg_inputNum = true;
@@ -38,7 +38,6 @@ $(function(){
                     this.result = this.result.replace( /,/g , "") + value;
 
                     let flg_decimal = this.result.split('.').length == 2 ? this.result.split('.')[1] : false;
-                    console.log(flg_decimal);
 
                     this.result = Number(this.result).toLocaleString( undefined, { maximumFractionDigits: 20 });
 
@@ -51,31 +50,48 @@ $(function(){
                 this.flg_inputNum = true;
             },
             pushSymbol: function (value) {
+                this.flg_result = false;
 
-                if(this.formula_text.slice(-1) == ' '){ // 記号で終わっている場合
+                if(this.formula_text.slice(-1) == ' ' && !this.flg_inputNum){ // 記号で終わっている場合
                     //数値の入力がない
-                    if(!this.flg_inputNum) this.formula_symbol[this.formula_symbol.length-1] = value;
+                    this.formula_symbol[this.formula_symbol.length-1] = value;
+                    this.createAllformula();
                     
-                } else {
+                } else if(this.flg_inputNum) {
                     // 数値
-                    this.formula_num[this.formula_num.length] = Number(this.result).toLocaleString( undefined, { maximumFractionDigits: 20 });
+                    this.result = this.result.replace( /,/g , "");
+                    this.formula_num[this.formula_num.length] = Number(this.result);
                     this.result = '0';
 
                     // 記号
                     this.formula_symbol[this.formula_symbol.length] =　value;
-
+                    this.createAllformula();
+                    this.flg_inputNum = false;
                 }
-                this.createAllformula();
-                flg_inputNum = false;
             },
             pushCalculation: function(){
-                if(this.formula_num.length == 0 || this.result == 0) return;// 式がない時は返却
+                if(this.formula_num.length == 0) return;// 式がない時は返却
 
                 if(this.formula_text.slice(-1) == ' '){ // 記号で終わっている場合
+                    if(this.flg_inputNum){
+                        this.result = this.result.replace( /,/g , ""); 
+                        this.formula_text += Number(this.result);
+                    } else {
+                        this.formula_text =　this.formula_text.slice( 0, -3);
+                    }       
                 }
-                let answer = safeEval(this.formula_text);
-                alert(answer);
 
+                this.formula_text =　this.formula_text.replace( /×/g , "*").replace(/÷/g , "/");
+                let answer = String(this.safeEval(this.formula_text));
+                answer = Number(answer).toLocaleString( undefined, { maximumFractionDigits: 20 });
+
+                this.formula_text = "";
+                this.result = answer;
+                this.result_text = answer;
+                this.flg_inputNum = true;
+                this.formula_num.length = 0;
+                this.formula_symbol.length = 0;
+                this.flg_result = true;
             },
             pushClear: function(){
                 Object.assign(app.$data, app.$options.data());
