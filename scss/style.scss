@@ -1,6 +1,4 @@
-$colors: (
-    black: #000
-);
+
 $breakpoints: (
     'xs': 'screen and (max-width: 360px)',
     'sm': 'screen and (max-width: 415px)',
@@ -10,6 +8,9 @@ $breakpoints: (
     @media #{map-get($breakpoints, $breakpoint)} {
       @content;
     }
+}
+html {
+    touch-action: manipulation;
 }
 
 body {

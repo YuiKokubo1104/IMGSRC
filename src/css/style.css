@@ -1,3 +1,7 @@
+html {
+  touch-action: manipulation;
+}
+
 body {
   position: relative;
   font-family: 'Oswald', sans-serif;
